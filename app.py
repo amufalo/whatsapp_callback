@@ -25,6 +25,7 @@ def process_media(body):
     remote = glom(body,"data.message.id.remote")
     message_id = glom(body,"data.message.id.id")
     session_id = glom(body,"sessionId")
+    print(mimetype)
     if mimetype == "audio/ogg; codecs=opus":
         process_voice_message(data,remote,message_id,session_id)
  
@@ -33,6 +34,6 @@ async def callback(request: Request):
     body = await request.json()
     if ("dataType" in body):
         if body["dataType"] == "media":
-            print(body)
+            #print(body)
             process_media(body)
     
