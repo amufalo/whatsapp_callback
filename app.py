@@ -4,6 +4,7 @@ from glom import glom
 import whatsapp
 import dotenv
 import ai
+from pdf_to_audio import pdf_to_audio
 
 dotenv.load_dotenv()
 
@@ -17,7 +18,21 @@ def process_voice_message(data,remote,message_id,session_id):
     filename="./media/"+message_id+".ogg"
     base64_to_file(data,filename)
     message="Transcrição do audio: \n"+ ai.transcription(filename)
-    whatsapp.message_reply(session_id,message_id,remote,message)
+    whatsapp.message_reply_str(session_id,message_id,remote,message)
+
+def process_pdf(data,remote,message_id,session_id):
+    filename="./media/"+message_id+".pdf"
+    base64_to_file(data,filename)    
+    ok, files = pdf_to_audio(filename,"./media/"+message_id+"/")
+    if ok:
+        total=files.count()
+        whatsapp.message_reply_str(session_id,message_id,remote,f"O retorno será em *${total}* partes")
+        for i,str in list:
+            whatsapp.message_reply_str(session_id,message_id,remote,f"*Parte {i}*")
+            whatsapp.message_reply_media(session_id,message_id,remote,str)
+    else:
+        whatsapp.message_reply_str(session_id,message_id,remote,f"Não foi possível extrair texto do PDF")
+
 
 def process_media(body):
     data = glom(body,"data.messageMedia.data")
@@ -28,6 +43,8 @@ def process_media(body):
     print(mimetype)
     if mimetype == "audio/ogg; codecs=opus":
         process_voice_message(data,remote,message_id,session_id)
+    elif mimetype == "application/pdf":
+        process_pdf(data,remote,message_id,session_id)
  
 @app.post("/callback")
 async def callback(request: Request):
