@@ -2,7 +2,7 @@ import openai
 import PyPDF2
 import os
 from gtts import gTTS
-from pydub import AudioSegment
+#from pydub import AudioSegment
 
 # Função para extrair texto de um arquivo PDF
 def extract_text_from_pdf(pdf_path):
@@ -33,14 +33,14 @@ def partition_text(text, max_length):
     return partitions
 
 # Função para ajustar a velocidade do áudio
-def change_audio_speed(input_audio_path, output_audio_path, speed=1.0):
-    try:
-        audio = AudioSegment.from_file(input_audio_path)
-        altered_audio = audio.speedup(playback_speed=speed)
-        altered_audio.export(output_audio_path, format="mp3")
-        print(f"Áudio ajustado salvo em: {output_audio_path}")
-    except Exception as e:
-        print(f"Erro ao ajustar a velocidade do áudio: {e}")
+#def change_audio_speed(input_audio_path, output_audio_path, speed=1.0):
+#    try:
+#        audio = AudioSegment.from_file(input_audio_path)
+#        altered_audio = audio.speedup(playback_speed=speed)
+#        altered_audio.export(output_audio_path, format="mp3")
+#        print(f"Áudio ajustado salvo em: {output_audio_path}")
+#    except Exception as e:
+#        print(f"Erro ao ajustar a velocidade do áudio: {e}")
 
 # Função para converter texto em áudio usando gTTS (ou qualquer API de voz desejada)
 def text_to_audio(text, output_audio_path, speed=1.0):
@@ -48,10 +48,10 @@ def text_to_audio(text, output_audio_path, speed=1.0):
         temp_audio_path = "temp_audio.mp3"
         tts = gTTS(text, lang='pt')  # Altere 'pt' para outro idioma, se necessário
         tts.save(temp_audio_path)
-        if speed != 1.0:
-            change_audio_speed(temp_audio_path, output_audio_path, speed)
-        else:
-            os.rename(temp_audio_path, output_audio_path)
+#        if speed != 1.0:
+#            change_audio_speed(temp_audio_path, output_audio_path, speed)
+#        else:
+        os.rename(temp_audio_path, output_audio_path)
         print(f"Áudio salvo em: {output_audio_path}")
     except Exception as e:
         print(f"Erro ao converter texto em áudio: {e}")
