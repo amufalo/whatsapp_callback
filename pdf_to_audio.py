@@ -70,10 +70,10 @@ def pdf_to_audio(pdf_path: str, output_audio_base_path: str):
 
         # Convertendo as partes do texto em áudio
         for i, partition in enumerate(text_partitions):
-            output_audio_path = f"{output_audio_base_path}_{i + 1}.mp3"
+            output_audio_path = f"{output_audio_base_path}parte_{i + 1}.mp3"
             text_to_audio(partition, output_audio_path, speed=1.0)        
             result.append(output_audio_path)
-            break
+            #break
         return True, result
     else:
         return False, result
