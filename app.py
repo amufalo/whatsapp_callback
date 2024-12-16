@@ -27,7 +27,7 @@ def process_pdf(data,remote,message_id,session_id):
     if ok:
         total=len(files)
         whatsapp.message_reply_str(session_id,message_id,remote,f"O retorno será em *${total}* partes")
-        for i,str in list:
+        for i,str in files:
             whatsapp.message_reply_str(session_id,message_id,remote,f"*Parte {i}*")
             whatsapp.message_reply_media(session_id,message_id,remote,str)
     else:
