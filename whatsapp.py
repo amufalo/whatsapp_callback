@@ -21,7 +21,7 @@ def message_reply(session_id: str, message_id: str, chat_id: str, content):
     requests.post(url=url,data=data)
 
 def message_reply_str(session_id: str, message_id: str, chat_id: str, content: str):
-    message_reply(session_id, message_id, content) 
+    message_reply(session_id, message_id, chat_id, content) 
 
 def message_reply_media(session_id: str, message_id: str, chat_id: str, file: str):
     
@@ -42,5 +42,5 @@ def message_reply_media(session_id: str, message_id: str, chat_id: str, file: st
         "filesize": filesize
     }
 
-    message_reply(session_id, message_id, content) 
+    message_reply(session_id, message_id, chat_id, content) 
 
