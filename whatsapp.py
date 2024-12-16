@@ -19,7 +19,7 @@ def message_reply(session_id: str, message_id: str, chat_id: str, content):
     }
     print(data)
     print(url)
-    requests.post(url=url,data=data)
+    requests.post(url=url, headers=header, data=data)
 
 def message_reply_str(session_id: str, message_id: str, chat_id: str, content: str):
     message_reply(session_id, message_id, chat_id, content) 
