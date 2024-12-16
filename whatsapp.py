@@ -17,7 +17,8 @@ def message_reply(session_id: str, message_id: str, chat_id: str, content):
     header= {
       "x-api-key": whatsapp_key
     }
-
+    print(data)
+    print(url)
     requests.post(url=url,data=data)
 
 def message_reply_str(session_id: str, message_id: str, chat_id: str, content: str):
