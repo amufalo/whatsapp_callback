@@ -25,7 +25,7 @@ def process_pdf(data,remote,message_id,session_id):
     base64_to_file(data,filename)    
     ok, files = pdf_to_audio(filename,"./media/"+message_id+"/")
     if ok:
-        total=files.count()
+        total=len(files)
         whatsapp.message_reply_str(session_id,message_id,remote,f"O retorno será em *${total}* partes")
         for i,str in list:
             whatsapp.message_reply_str(session_id,message_id,remote,f"*Parte {i}*")
