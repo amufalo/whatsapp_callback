@@ -26,12 +26,12 @@ def process_pdf(data,remote,message_id,session_id):
     ok, files = pdf_to_audio(filename,"./media/"+message_id+"/")
     if ok:
         total=len(files)
-        whatsapp.message_reply_str(session_id,message_id,remote,f"O retorno será em *${total}* partes")
+        whatsapp.message_reply(session_id,message_id,remote,f"O retorno será em *{total}* partes")
         for i,str in enumerate(files):
-            whatsapp.message_reply_str(session_id,message_id,remote,f"*Parte {i}*")
-            whatsapp.message_reply_media(session_id,message_id,remote,str)
+            whatsapp.message_reply(session_id,message_id,remote,f"*Parte {i+1}*")
+            whatsapp.send_messagemedia(session_id,remote,str)
     else:
-        whatsapp.message_reply_str(session_id,message_id,remote,f"Não foi possível extrair texto do PDF")
+        whatsapp.message_reply(session_id,message_id,remote,f"Não foi possível extrair texto do PDF")
 
 
 def process_media(body):
