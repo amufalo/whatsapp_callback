@@ -1,14 +1,11 @@
-FROM python:3.10
+FROM python:3.13-alpine
 
 EXPOSE 5000
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends ffmpeg \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add ffmpeg shared-mime-info
 
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
@@ -19,8 +16,8 @@ RUN mkdir /app/media
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
-USER appuser
+#RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+#USER appuser
 
 RUN pip config --user set global.progress_bar off
 
