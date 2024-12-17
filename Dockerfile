@@ -1,14 +1,14 @@
-FROM python:3.13-alpine
+FROM python:3.10-alpine
 
 EXPOSE 5000
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-RUN apk add ffmpeg shared-mime-info
+RUN apk add --no-cache file ffmpeg
 
 COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
+RUN python -m pip install --no-cache-dir -r requirements.txt
 
 WORKDIR /app
 COPY . /app
