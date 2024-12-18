@@ -5,7 +5,7 @@ EXPOSE 5000
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-RUN apk add --no-cache file ffmpeg
+RUN apk add --no-cache mailcap ffmpeg
 
 COPY requirements.txt .
 RUN python -m pip install --no-cache-dir -r requirements.txt
